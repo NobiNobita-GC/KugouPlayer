@@ -1,0 +1,18 @@
+<Window x:Class="KugouPlayer.Views.VideoPlayerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="本地视频" Width="960" Height="610" MinWidth="640" MinHeight="420"
+        Background="#111318" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.RowDefinitions><RowDefinition /><RowDefinition Height="68" /></Grid.RowDefinitions>
+        <MediaElement x:Name="Player" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Uniform" MediaOpened="Player_MediaOpened" MediaEnded="Player_MediaEnded" />
+        <Border Grid.Row="1" Background="#E81A1D23" Padding="18,10">
+            <Grid>
+                <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition /><ColumnDefinition Width="130" /></Grid.ColumnDefinitions>
+                <Button x:Name="PlayPauseButton" Width="40" Height="40" Content="暂停" Click="PlayPauseButton_Click" Background="#1687F8" Foreground="White" BorderThickness="0" />
+                <Slider x:Name="ProgressSlider" Grid.Column="1" Margin="16,0" Minimum="0" Maximum="1" VerticalAlignment="Center" PreviewMouseLeftButtonUp="ProgressSlider_PreviewMouseLeftButtonUp" />
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center"><TextBlock Text="音量" Foreground="#C8FFFFFF" VerticalAlignment="Center" Margin="0,0,8,0" /><Slider Width="82" Minimum="0" Maximum="1" Value="0.7" ValueChanged="VolumeSlider_ValueChanged" /></StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

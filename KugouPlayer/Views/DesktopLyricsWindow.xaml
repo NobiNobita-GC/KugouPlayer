@@ -1,0 +1,34 @@
+<Window x:Class="KugouPlayer.Views.DesktopLyricsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="桌面歌词" Width="720" Height="112" MinWidth="420"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="CanResizeWithGrip" ShowInTaskbar="False" Topmost="{Binding DesktopLyricsTopmost}"
+        WindowStartupLocation="CenterOwner" FontFamily="{StaticResource DefaultFont}">
+    <Window.Resources>
+        <Style x:Key="LyricToolButton" TargetType="Button">
+            <Setter Property="Width" Value="30" /><Setter Property="Height" Value="26" /><Setter Property="Background" Value="Transparent" /><Setter Property="Foreground" Value="White" /><Setter Property="BorderThickness" Value="0" /><Setter Property="Cursor" Value="Hand" /><Setter Property="FontFamily" Value="{StaticResource IconFont}" />
+            <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button"><Border x:Name="Root" Background="{TemplateBinding Background}" CornerRadius="5"><ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" /></Border><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Root" Property="Background" Value="#32FFFFFF" /></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter>
+        </Style>
+    </Window.Resources>
+    <Border x:Name="LyricSurface" Background="#B51B2028" CornerRadius="12" BorderBrush="#28FFFFFF" BorderThickness="1" MouseLeftButtonDown="LyricSurface_MouseLeftButtonDown">
+        <Grid Margin="14,9">
+            <Grid.RowDefinitions><RowDefinition Height="28" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+            <Grid>
+                <StackPanel Orientation="Horizontal"><TextBlock Text="{Binding CurrentSong.SongName, FallbackValue=酷狗音乐}" Foreground="#DFFFFFFF" FontSize="11" FontWeight="SemiBold" VerticalAlignment="Center" /><TextBlock Text="  ·  " Foreground="#66FFFFFF" VerticalAlignment="Center" /><TextBlock Text="{Binding CurrentSong.DisplayArtist, FallbackValue=桌面歌词}" Foreground="#99FFFFFF" FontSize="10" VerticalAlignment="Center" /></StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource LyricToolButton}" Content="&#xE892;" Command="{Binding PreviousSongCommand}" ToolTip="上一首" />
+                    <Button Style="{StaticResource LyricToolButton}" Command="{Binding TogglePlayCommand}" ToolTip="播放/暂停"><TextBlock FontFamily="{StaticResource IconFont}"><TextBlock.Style><Style TargetType="TextBlock"><Setter Property="Text" Value="&#xE768;" /><Style.Triggers><DataTrigger Binding="{Binding IsPlaying}" Value="True"><Setter Property="Text" Value="&#xE769;" /></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock></Button>
+                    <Button Style="{StaticResource LyricToolButton}" Content="&#xE893;" Command="{Binding NextSongCommand}" ToolTip="下一首" />
+                    <Button x:Name="LockButton" Style="{StaticResource LyricToolButton}" Content="&#xE72E;" Click="LockButton_Click" ToolTip="锁定歌词" />
+                    <Button Style="{StaticResource LyricToolButton}" Content="&#xE8BB;" Click="CloseButton_Click" ToolTip="关闭桌面歌词" />
+                </StackPanel>
+            </Grid>
+            <TextBlock Grid.Row="1" Text="{Binding CurrentLyricLine.Text, FallbackValue=听见每一种热爱}" FontSize="25" FontWeight="SemiBold" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <TextBlock.Foreground><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#71D8FF" /><GradientStop Color="#FFFFFF" Offset="0.48" /><GradientStop Color="#8EA7FF" Offset="1" /></LinearGradientBrush></TextBlock.Foreground>
+                <TextBlock.Effect><DropShadowEffect Color="#B0000000" BlurRadius="5" ShadowDepth="1" /></TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+    </Border>
+</Window>
+

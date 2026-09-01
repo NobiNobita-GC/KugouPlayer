@@ -1,31 +1,26 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace KugouPlayer.Models
+namespace KugouPlayer.Models;
+
+public partial class SongModel : ObservableObject
 {
-    [ObservableObject]
-    public partial class SongModel
-    {
-        [ObservableProperty]
-        private string? _songName;
+    public string Id { get; init; } = Guid.NewGuid().ToString("N");
 
-        [ObservableProperty]
-        private string? _singer;
+    [ObservableProperty] private string _songName = string.Empty;
+    [ObservableProperty] private string _singer = string.Empty;
+    [ObservableProperty] private string _album = string.Empty;
+    [ObservableProperty] private string? _coverImage;
+    [ObservableProperty] private byte[]? _coverData;
+    [ObservableProperty] private string? _filePath;
+    [ObservableProperty] private TimeSpan _duration;
+    [ObservableProperty] private bool _isPlaying;
+    [ObservableProperty] private bool _isFavorite;
+    [ObservableProperty] private int _playCount;
 
-        [ObservableProperty]
-        private string? _coverImage;
+    public string AccentColor { get; init; } = "#5B8FF9";
+    public string DurationText => Duration == TimeSpan.Zero ? "--:--" : Duration.ToString(@"mm\:ss");
+    public string DisplayArtist => string.IsNullOrWhiteSpace(Singer) ? "未知歌手" : Singer;
 
-        [ObservableProperty]
-        private double _currentSecond;
-
-        [ObservableProperty]
-        private double _totalSecond;
-
-        [ObservableProperty]
-        private bool _isPlaying;
-    }
+    partial void OnDurationChanged(TimeSpan value) => OnPropertyChanged(nameof(DurationText));
+    partial void OnSingerChanged(string value) => OnPropertyChanged(nameof(DisplayArtist));
 }

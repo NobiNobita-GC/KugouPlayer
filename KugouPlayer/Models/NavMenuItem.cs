@@ -1,22 +1,13 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace KugouPlayer.Models
+namespace KugouPlayer.Models;
+
+public partial class NavMenuItem : ObservableObject
 {
-    [ObservableObject]
-    public partial class NavMenuItem
-    {
-        [ObservableProperty]
-        private string? _menuName;
+    public required string MenuName { get; init; }
+    public required string IconGlyph { get; init; }
+    public required PageKind Page { get; init; }
 
-        [ObservableProperty]
-        private string? _iconPath;
-
-        [ObservableProperty]
-        private bool _isSelected;
-    }
+    [ObservableProperty]
+    private bool _isSelected;
 }
